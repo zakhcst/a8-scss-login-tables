@@ -1,15 +1,52 @@
 <section id="login-container">
-
   <section id="form-content">
+    <form class="in-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="title">Login</div>
 
-    <input type="text" placeholder="Email" value="" />
+      <div class="input-group">
+        <label>Email</label>
+        <input
+          type="text"
+          placeholder="email@email.com"
+          formControlName="email"
+        />
+        <div [hidden]="!email.errors" class="error-message-container">
+          <div *ngIf="email.touched && email.hasError('required')">Required</div>
+          <div *ngIf="email.hasError('email')">Invalid</div>
+        </div>
+      </div>
 
-    <input type="text" placeholder="Password" value="">
+      <div class="input-group">
+        <label>Password</label>
+        <input
+          type="password"
+          placeholder="password"
+          formControlName="password"
+        />
+        <div [hidden]="!password.errors" class="error-message-container">
+          <div *ngIf="password.touched && password.hasError('required')">Required</div>
+          <div *ngIf="password.hasError('minlength')">
+            Shorter than required
+          </div>
+        </div>
+      </div>
 
-    <button type="submit" id="login-btn">Login</button>
-
-    <a (click)="navigateTo('sign-in')">Sign In</a>
-
+      <div class="buttons-row">
+        <a (click)="navigateTo('sign-in')" class="myButton left">Sign In</a>
+        <button
+          type="submit"
+          class="myButton right"
+          id="login-btn"
+          [disabled]="loginForm.invalid || responseErrorMessage"
+        >
+          Login
+        </button>
+      </div>
+      <div [hidden]="!responseErrorMessage" class="error-message-container">
+        <div *ngIf="responseErrorMessage" class="error-box">
+          {{ responseErrorMessage }}
+        </div>
+      </div>
+    </form>
   </section>
-
 </section>

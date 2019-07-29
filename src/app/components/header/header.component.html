@@ -2,12 +2,23 @@
   <section id="navigation-container">
     <div class="navigation-container">
       <nav>
-        <a class="page-links" *ngFor="let link of routeLinks; let i = index" id="{{link.link}}" [routerLink]="link.link"
-          routerLinkActive #rla="routerLinkActive">
-          {{link.label}}
+        <a
+          class="page-link left"
+          *ngFor="let link of routeLinks; let i = index"
+          id="{{ link.link }}"
+          [routerLink]="link.link"
+          routerLinkActive="active-link"
+          #rla="routerLinkActive"
+        >
+          {{ link.label }}
         </a>
+        <a (click)="logout()" class="right page-link logout">
+          Logout
+        </a>
+        <span class="right active-link">
+          User: {{ currentUser?.username }}
+        </span>
       </nav>
     </div>
-
   </section>
 </section>

@@ -1,17 +1,87 @@
-<section id="sign-in-container">
+<!-- <section id="sign-in-container">
+  <section id="form-content">
+    <input type="text" placeholder="Email" value="" />
 
-    <section id="form-content">
-  
-      <input type="text" placeholder="Email" value="" />
-  
-      <input type="text" placeholder="Password" value="">
+    <input type="text" placeholder="Password" value="" />
 
-      <input type="text" placeholder="Re-password" value="">
-  
-      <button type="submit" id="login-btn">Sign In</button>
-  
-      <a (click)="navigateTo('login')">Sign In</a>
-  
-    </section>
-  
+    <input type="text" placeholder="Re-password" value="" />
+
+    <button type="submit" id="login-btn">Sign In</button>
+
+    <a (click)="navigateTo('login')">Sign In</a>
   </section>
+</section> -->
+
+<section id="sign-in-container">
+  <section id="form-content">
+    <form class="in-form" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+      <div class="title">Sign in</div>
+
+      <div class="input-group">
+        <label>Email</label>
+        <input
+          type="text"
+          placeholder="email@email.com"
+          formControlName="email"
+        />
+        <div [hidden]="!email.errors" class="error-message-container">
+          <div *ngIf="email.touched && email.hasError('required')">
+            Required
+          </div>
+          <div *ngIf="email.hasError('email')">Invalid</div>
+          <div *ngIf="email.hasError('duplicateEmail')">Registered email</div>
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input
+          type="password"
+          placeholder="password"
+          formControlName="password"
+        />
+        <div [hidden]="!password.errors" class="error-message-container">
+          <div *ngIf="password.touched && password.hasError('required')">
+            Required
+          </div>
+          <div *ngIf="password.hasError('minlength')">
+            Shorter than required
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Confirm Password</label>
+        <input
+          type="password"
+          placeholder="password"
+          formControlName="passwordConfirm"
+        />
+        <div [hidden]="!passwordConfirm.errors" class="error-message-container">
+          <div *ngIf="passwordConfirm.touched && passwordConfirm.hasError('required')">
+            Required
+          </div>
+          <div *ngIf="signinForm.hasError('matchPasswords')">
+            Passwords don't match
+          </div>
+        </div>
+      </div>
+
+      <div class="buttons-row">
+        <a (click)="navigateTo('login')" class="myButton left">Login</a>
+        <button
+          type="submit"
+          class="myButton right"
+          id="signin-btn"
+          [disabled]="!signinForm.valid || responseErrorMessage"
+          >
+          Sign In
+        </button>
+      </div>
+      <div [hidden]="!responseErrorMessage" class="error-message-container">
+        <div *ngIf="responseErrorMessage" class="error-box">
+          {{ responseErrorMessage }}
+        </div>
+      </div>
+    </form>
+  </section>
+</section>

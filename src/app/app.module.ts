@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ApiDataService } from './api-data.service';
@@ -15,6 +15,7 @@ import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { CurrentStatusComponent } from './pages/current-status/current-status.component';
 import { NestedDataComponent } from './pages/nested-data/nested-data.component';
 import { HeaderComponent } from './components/header/header.component';
+import { AppErrorHandlerService } from './services/error-handler.service';
 
 @NgModule({
   declarations: [
@@ -28,13 +29,13 @@ import { HeaderComponent } from './components/header/header.component';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule,
     BrowserAnimationsModule,
     InMemoryWebApiModule.forRoot(ApiDataService)
   ],
-  providers: [],
+  providers: [{ provide: ErrorHandler, useClass: AppErrorHandlerService }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

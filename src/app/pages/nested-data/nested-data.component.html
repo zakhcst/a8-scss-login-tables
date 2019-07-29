@@ -1,3 +1,47 @@
-<p>
-  nested-data works!
-</p>
+<section id="nested-data-container">
+  <section id="nested-data-header" #nesteddataheader>
+    <div class="table-row">
+      <span>Num</span>
+      <span>Amount</span>
+      <span>Description</span>
+      <div [ngStyle]="{ width: scrollbarWidth + 'px' }"></div>
+    </div>
+  </section>
+
+  <section id="nested-data-content" #nesteddatacontent>
+    <div class="table-row no-details" *ngIf="policies?.length === 0">
+      <span>No Data</span>
+    </div>
+    <div
+      *ngFor="let policy of policies; let index = index; let odd = odd"
+      (click)="getDetails(policy.polId, index)"
+    >
+      <div class="table-row" [ngClass]="{ odd: odd }">
+        {{ polInd === index ? '&#x23F7;' : '&#x23F5;' }}
+        <span>{{ policy.num }}</span>
+        <span>{{ policy.amount }}</span>
+        <span>{{ policy.description }}</span>
+      </div>
+
+      <div *ngIf="polInd === index" class="sub-table-box">
+        <div
+          class="sub-table-row sub-header"
+          *ngIf="policyDetails?.length > 0"
+        >
+          <span>Amount</span>
+          <span>Client Name</span>
+        </div>
+        <div class="sub-table-row" *ngFor="let policyDetail of policyDetails">
+          <span>{{ policyDetail.amount }}</span>
+          <span>{{ policyDetail.clientName }}</span>
+        </div>
+        <div
+          class="sub-table-row no-details"
+          *ngIf="policyDetails?.length === 0"
+        >
+          <span>No Details</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>

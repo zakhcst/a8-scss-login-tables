@@ -5,6 +5,8 @@ export class authI {
     password: string;
 }
 
+export type UserI = authI | null;
+
 export class policiesI {
     num: string;
     polId: number;

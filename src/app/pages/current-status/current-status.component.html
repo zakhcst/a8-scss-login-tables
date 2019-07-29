@@ -1,5 +1,21 @@
 <section id="current-status-container">
-  <p>
-    current-status works!
-  </p>
+  <section id="current-status-header" #currentstatusheader>
+    <div class="table-row">
+      <span>Num</span>
+      <span>Amount</span>
+      <span>Description</span>
+      <div [ngStyle]="{ width: scrollbarWidth + 'px' }"></div>
+    </div>
+  </section>
+
+  <section id="current-status-content" #currentstatuscontent>
+    <div class="table-row no-details" *ngIf="policies?.length === 0">
+      <span>No Data</span>
+    </div>
+    <div class="table-row" *ngFor="let policy of policies">
+      <span>{{ policy.num }}</span>
+      <span>{{ policy.amount }}</span>
+      <span>{{ policy.description }}</span>
+    </div>
+  </section>
 </section>

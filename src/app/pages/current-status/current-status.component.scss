@@ -1,0 +1,50 @@
+#current-status-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-start;
+  --status-columns: 3;
+}
+
+#current-status-header {
+  background-color: #00997788;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-start;
+}
+
+#current-status-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-start;
+  overflow: auto;
+}
+
+.table-row {
+  padding-left: 30px;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  & > span {
+    width: calc(100% / var(--status-columns));
+    height: 30px;
+    display: flex;
+    align-items: center;
+    text-overflow: ellipsis;
+  }
+  &:nth-of-type(even) {
+    background: #eee
+  }
+
+}
+.no-details {
+  background-color: #eee;
+  color: #dd0000;
+}
+

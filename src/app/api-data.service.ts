@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { InMemoryDbService } from 'angular-in-memory-web-api'
+import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 @Injectable({
   providedIn: 'root'
@@ -77,10 +77,13 @@ export class ApiDataService implements InMemoryDbService {
       { detailsId: 26, polId: 17, amount: 5000, clientName: 'admin35' },
       { detailsId: 27, polId: 18, amount: 4000, clientName: 'admin31' },
       { detailsId: 28, polId: 19, amount: 500, clientName: 'admin37' },
-    ]
+    ];
+    return { auth, policies: [...policies, ...policies, ...policies, ...policies ], policiesDetails };
+    // return { auth, policies, policiesDetails };
+  }
 
-    return { auth, policies, policiesDetails };
-
+  genId(colection: any[], collectioName: string) {
+    return colection.length + 1;
   }
 }
 
