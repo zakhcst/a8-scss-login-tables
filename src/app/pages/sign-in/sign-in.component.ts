@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DatastoreService } from 'src/app/services/datastore.service';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+// import { AuthenticationService } from 'src/app/services/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { single } from 'rxjs/operators';
 import { matchPasswordsValidator } from '../../form-validators/match-passwords.validator';
-import { Subscription } from 'rxjs';
 import { DuplicateEmailValidator } from 'src/app/form-validators/duplicate-email.validator';
 
 @Component({
@@ -14,16 +13,15 @@ import { DuplicateEmailValidator } from 'src/app/form-validators/duplicate-email
   providers: [DuplicateEmailValidator]
 })
 export class SignInComponent implements OnInit {
+  onSingInSuccessNavigateToPath = '';
   signinForm: FormGroup;
   submitted = false;
   responseErrorMessage: string | null = null;
-  valueChangesSubscription: Subscription;
-  valueChangesSubscription1: Subscription;
 
   constructor(
     private datastore: DatastoreService,
     private formBuilder: FormBuilder,
-    private authentication: AuthenticationService,
+    // private authentication: AuthenticationService,
     private duplicateEmailValidator: DuplicateEmailValidator
   ) {}
 
@@ -75,37 +73,15 @@ export class SignInComponent implements OnInit {
       .pipe(single())
       .subscribe(
         data => {
-          this.navigateTo('');
+          this.navigateTo(this.onSingInSuccessNavigateToPath);
         },
         error => {
-          this.responseErrorMessage =
-            'Check server or connection and resubmit.';
-          this.showErrorMessagePopUp();
-          const message = 'Error: Contact support with the following message:';
-          console.log(message);
-          console.log(error);
-          window.alert(message + error);
-          this.navigateTo('login');
+          throw new Error(error);
         }
       );
   }
 
   navigateTo(page: string) {
     this.datastore.navigateTo(page);
-  }
-
-  showErrorMessageUntilChanged() {
-    this.valueChangesSubscription = this.signinForm.valueChanges.subscribe(
-      _ => {
-        this.responseErrorMessage = null;
-        this.valueChangesSubscription.unsubscribe();
-      }
-    );
-  }
-
-  showErrorMessagePopUp() {
-    setTimeout(_ => {
-      this.responseErrorMessage = null;
-    }, 5000);
   }
 }

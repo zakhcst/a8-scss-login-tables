@@ -11,7 +11,8 @@ export class ApiDataService implements InMemoryDbService {
 
     const auth = [
       { userId: 1, username: 'admin', password: 'admin', email: 'admin@admin.com' },
-      { userId: 2, username: 'guest', password: 'guest', email: 'guest@guest.com' }
+      { userId: 2, username: 'guest', password: 'guest', email: 'guest@guest.com' },
+      { userId: 22, username: '2', password: '123456', email: '2@2' }
     ];
 
     const policies = [
@@ -59,6 +60,34 @@ export class ApiDataService implements InMemoryDbService {
       { detailsId: 7, polId: 8, amount: 4000, clientName: 'admin1' },
       { detailsId: 8, polId: 8, amount: 500, clientName: 'admin7' },
       { detailsId: 9, polId: 8, amount: 5500, clientName: 'admin8' },
+
+      { detailsId: 41, polId: 8, amount: 4000, clientName: 'admin1' },
+      { detailsId: 42, polId: 8, amount: 500, clientName: 'admin7' },
+      { detailsId: 43, polId: 8, amount: 5500, clientName: 'admin8' },
+      { detailsId: 44, polId: 8, amount: 4000, clientName: 'admin1' },
+      { detailsId: 45, polId: 8, amount: 500, clientName: 'admin7' },
+      { detailsId: 46, polId: 8, amount: 5500, clientName: 'admin8' },
+      { detailsId: 47, polId: 8, amount: 4000, clientName: 'admin1' },
+      { detailsId: 48, polId: 8, amount: 500, clientName: 'admin7' },
+      { detailsId: 49, polId: 8, amount: 5500, clientName: 'admin8' },
+      { detailsId: 51, polId: 8, amount: 4000, clientName: 'admin1' },
+      { detailsId: 52, polId: 8, amount: 500, clientName: 'admin7' },
+      { detailsId: 53, polId: 8, amount: 5500, clientName: 'admin8' },
+      { detailsId: 54, polId: 8, amount: 4000, clientName: 'admin1' },
+      { detailsId: 55, polId: 8, amount: 500, clientName: 'admin7' },
+      { detailsId: 56, polId: 8, amount: 5500, clientName: 'admin8' },
+      { detailsId: 57, polId: 8, amount: 4000, clientName: 'admin1' },
+      { detailsId: 58, polId: 8, amount: 500, clientName: 'admin7' },
+      { detailsId: 59, polId: 8, amount: 5500, clientName: 'admin8' },
+      { detailsId: 61, polId: 8, amount: 4000, clientName: 'admin1' },
+      { detailsId: 62, polId: 8, amount: 500, clientName: 'admin7' },
+      { detailsId: 63, polId: 8, amount: 5500, clientName: 'admin8' },
+      { detailsId: 64, polId: 8, amount: 4000, clientName: 'admin1' },
+      { detailsId: 65, polId: 8, amount: 500, clientName: 'admin7' },
+      { detailsId: 66, polId: 8, amount: 5500, clientName: 'admin8' },
+      { detailsId: 67, polId: 8, amount: 4000, clientName: 'admin1' },
+      { detailsId: 68, polId: 8, amount: 500, clientName: 'admin7' },
+      { detailsId: 69, polId: 8, amount: 5500, clientName: 'admin8' },
 
       { detailsId: 11, polId: 11, amount: 100, clientName: 'admin21' },
       { detailsId: 12, polId: 13, amount: 100, clientName: 'admin21' },

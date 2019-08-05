@@ -5,7 +5,7 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ApiDataService } from './api-data.service';
 
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -16,6 +16,7 @@ import { CurrentStatusComponent } from './pages/current-status/current-status.co
 import { NestedDataComponent } from './pages/nested-data/nested-data.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AppErrorHandlerService } from './services/error-handler.service';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,10 @@ import { AppErrorHandlerService } from './services/error-handler.service';
     BrowserAnimationsModule,
     InMemoryWebApiModule.forRoot(ApiDataService)
   ],
-  providers: [{ provide: ErrorHandler, useClass: AppErrorHandlerService }],
+  providers: [
+    { provide: ErrorHandler, useClass: AppErrorHandlerService },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

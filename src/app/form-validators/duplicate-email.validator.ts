@@ -6,8 +6,8 @@ import {
   AsyncValidator,
   ValidationErrors
 } from '@angular/forms';
-import { Observable, of, timer } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { Observable, timer, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

@@ -67,20 +67,15 @@
       </div>
 
       <div class="buttons-row">
-        <a (click)="navigateTo('login')" class="myButton left">Login</a>
+        <a (click)="navigateTo('login')" class="in-form-button">Login</a>
         <button
           type="submit"
-          class="myButton right"
+          class="in-form-button"
           id="signin-btn"
           [disabled]="!signinForm.valid || responseErrorMessage"
           >
           Sign In
         </button>
-      </div>
-      <div [hidden]="!responseErrorMessage" class="error-message-container">
-        <div *ngIf="responseErrorMessage" class="error-box">
-          {{ responseErrorMessage }}
-        </div>
       </div>
     </form>
   </section>

@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  OnDestroy,
   ElementRef,
   ViewChild,
   HostListener,
@@ -25,7 +24,7 @@ export class NestedDataComponent
   viewReady = false;
   showDetails = {};
   policyDetails: policiesDetailsI[];
-  polInd: number | null;
+  selectedPolicyInd: number | null;
 
   @ViewChild('nesteddataheader', { static: true })
   nestedDataHeader: ElementRef;
@@ -69,12 +68,16 @@ export class NestedDataComponent
   }
 
   getDetails(polId: number, index: number) {
-    if (this.polInd) {
-      this.polInd = null;
+    this.nestedDataContent.nativeElement.style.overflow = 'auto';
+    if (this.selectedPolicyInd) {
+      this.selectedPolicyInd = null;
+      this.hasScrollbar();
     } else {
+      this.nestedDataContent.nativeElement.style.overflow = 'hidden';
       this.api.getPolicyDetails(polId).subscribe(policyDetails => {
         this.policyDetails = policyDetails;
-        this.polInd = index;
+        this.selectedPolicyInd = index;
+        this.hasScrollbar();
       });
     }
   }

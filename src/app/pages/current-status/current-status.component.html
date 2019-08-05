@@ -1,21 +1,29 @@
-<section id="current-status-container">
-  <section id="current-status-header" #currentstatusheader>
+<section id="current-status-container" class="table-box">
+  <section id="current-status-header" class="table-header" #currentstatusheader>
     <div class="table-row">
       <span>Num</span>
-      <span>Amount</span>
+      <span class="flex-justify-right">Amount</span>
       <span>Description</span>
       <div [ngStyle]="{ width: scrollbarWidth + 'px' }"></div>
     </div>
   </section>
 
-  <section id="current-status-content" #currentstatuscontent>
-    <div class="table-row no-details" *ngIf="policies?.length === 0">
-      <span>No Data</span>
-    </div>
-    <div class="table-row" *ngFor="let policy of policies">
+  <section
+    id="current-status-content"
+    class="table-content"
+    #currentstatuscontent
+  >
+    <div
+      class="table-row"
+      *ngFor="let policy of policies; let odd1 = odd"
+      [ngClass]="{ odd: odd1 }"
+    >
       <span>{{ policy.num }}</span>
-      <span>{{ policy.amount }}</span>
+      <span class="flex-justify-right">{{ policy.amount }}</span>
       <span>{{ policy.description }}</span>
+    </div>
+    <div class="no-data" *ngIf="policies?.length === 0">
+      No Policies
     </div>
   </section>
 </section>

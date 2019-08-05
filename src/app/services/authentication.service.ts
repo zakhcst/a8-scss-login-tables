@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { authI, UserI } from '../app.models';
 import { DatastoreService } from './datastore.service';
@@ -11,7 +10,7 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<UserI>;
   public currentUser: Observable<UserI>;
 
-  constructor(private http: HttpClient, private datastore: DatastoreService) {
+  constructor(private datastore: DatastoreService) {
     this.currentUserSubject = new BehaviorSubject<UserI>(null);
     this.currentUser = this.currentUserSubject.asObservable();
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DatastoreService } from 'src/app/services/datastore.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -10,11 +10,12 @@ import { Subscription } from 'rxjs';
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss']
 })
-export class LogInComponent implements OnInit {
+export class LogInComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
-  submitted = false;
   responseErrorMessage: string | null = null;
   valueChangesSubscription: Subscription;
+  loggedIn = false;
+  onLogInSuccessNavigateToPath = 'nested-data';
 
   constructor(
     private datastore: DatastoreService,
@@ -35,12 +36,17 @@ export class LogInComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.formBuilder.group(
       {
-        email: ['', [Validators.required, Validators.email]],
+        email: ['', [Validators.required]],
         password: ['', [Validators.required]]
       },
       { updateOn: 'change' }
     );
-    this.onSubmit();
+  }
+
+  ngOnDestroy() {
+    if (this.valueChangesSubscription) {
+      this.valueChangesSubscription.unsubscribe();
+    }
   }
 
   get email() {
@@ -51,32 +57,24 @@ export class LogInComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
     if (this.loginForm.invalid) {
       return;
     }
-
     this.authentication
       .login(this.email.value, this.password.value)
       .pipe(single())
       .subscribe(
         data => {
           if (data) {
-            this.navigateTo('current-status');
+            this.loggedIn = true;
+            this.navigateTo(this.onLogInSuccessNavigateToPath);
           } else {
             this.responseErrorMessage = 'Non existing user or invalid email';
-            this.showErrorMessageUntilChanged();
+            this.showErrorMessageUntilFormValueChanged();
           }
         },
         error => {
-          this.responseErrorMessage =
-            'Check server or connection and resubmit.';
-          this.showErrorMessagePopUp();
-          const message = 'Error: Contact support with the following message:';
-          console.log(message);
-          console.log(error);
-          window.alert(message + error);
-          this.navigateTo('login');
+          throw new Error(error);
         }
       );
   }
@@ -85,15 +83,12 @@ export class LogInComponent implements OnInit {
     this.datastore.navigateTo(page);
   }
 
-  showErrorMessageUntilChanged() {
-    this.valueChangesSubscription = this.loginForm.valueChanges.subscribe(_ => {
-      this.responseErrorMessage = null;
-      this.valueChangesSubscription.unsubscribe();
-    });
-  }
-  showErrorMessagePopUp() {
-    setTimeout(_ => {
-      this.responseErrorMessage = null;
-    }, 3000);
+  showErrorMessageUntilFormValueChanged() {
+    this.valueChangesSubscription = this.loginForm.valueChanges.subscribe(
+      () => {
+        this.responseErrorMessage = null;
+        this.valueChangesSubscription.unsubscribe();
+      }
+    );
   }
 }

@@ -11,11 +11,11 @@ export class AppErrorHandlerService implements ErrorHandler {
 
   handleError(error) {
     const router = this.injector.get(Router);
-    const message = 'Error: Contact support with the following message:';
+    const message = 'Contact support with the following message:';
     console.log(message);
     console.log(error);
     window.alert(message + error);
 
-    this.ngZone.run(() => router.navigate(['log-in']));
+    this.ngZone.run(() => router.navigate(['']));
   }
 }
